@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hneu_timetable/src/models/dtos.dart';
-import 'package:hneu_timetable/src/models/entities.dart';
-import 'package:hneu_timetable/src/network_service.dart';
+import 'package:hneu_timetable/src/data/models/dtos.dart';
+import 'package:hneu_timetable/src/data/models/entities.dart';
+import 'package:hneu_timetable/src/data/network_service.dart';
 
 class ScheduleRepository {
   final ScheduleService service;

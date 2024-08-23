@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hneu_timetable/src/mock.dart';
-import 'package:hneu_timetable/src/models/dtos.dart';
+import 'package:hneu_timetable/src/data/mock.dart';
+import 'package:hneu_timetable/src/data/models/dtos.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' as html_parser;
 

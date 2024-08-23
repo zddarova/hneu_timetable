@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hneu_timetable/src/calendar.dart';
-import 'package:hneu_timetable/src/models/entities.dart';
-import 'package:hneu_timetable/src/network_service.dart';
-import 'package:hneu_timetable/src/repository.dart';
+import 'package:hneu_timetable/src/ui/widgets/schedule_calendar.dart';
+import 'package:hneu_timetable/src/data/models/entities.dart';
+import 'package:hneu_timetable/src/data/network_service.dart';
+import 'package:hneu_timetable/src/data/repository.dart';
 import 'package:dio/dio.dart';
 
 class ScheduleCalendarPage extends StatefulWidget {
