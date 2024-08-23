@@ -1,0 +1,6 @@
+{
+  "appTitle": "hneu_timetable",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
