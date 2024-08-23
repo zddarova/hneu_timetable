@@ -5,18 +5,50 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class ScheduleCalendar extends StatelessWidget {
   final ScheduleEntity schedule;
+  final ValueChanged<int> onWeekChanged;
 
-  const ScheduleCalendar({super.key, required this.schedule});
+  const ScheduleCalendar({
+    super.key,
+    required this.schedule,
+    required this.onWeekChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(schedule.title),
+        title: Text(
+          schedule.title.replaceAll(RegExp(r'\s+'), ' '),
+        ),
       ),
       body: SfCalendar(
         view: CalendarView.week,
-        dataSource: MeetingDataSource(_getAppointments(schedule)),
+        showWeekNumber: true,
+        showNavigationArrow: true,
+        dataSource: _MeetingDataSource(_getAppointments(schedule)),
+        firstDayOfWeek: 1,
+        timeSlotViewSettings: const TimeSlotViewSettings(
+          startHour: 8,
+          endHour: 20,
+          timeFormat: 'h:mm',
+          numberOfDaysInView: 7,
+          timeInterval: Duration(minutes: 30),
+        ),
+        onViewChanged: (viewChangedDetails) async {
+          final todaysDateTime = DateTime.now();
+          final todaysDayOfTheWeek = todaysDateTime.weekday;
+
+          final visibleDates = viewChangedDetails.visibleDates;
+
+          final sameDayOfTheWeek =
+              visibleDates.firstWhere((date) => date.weekday == todaysDayOfTheWeek);
+
+          final deltaInDays = sameDayOfTheWeek.difference(todaysDateTime).inDays;
+          final deltaInWeeks = deltaInDays ~/ 7;
+
+          await Future.delayed(const Duration(milliseconds: 100));
+          onWeekChanged(deltaInWeeks + 1);
+        },
         appointmentBuilder: (context, details) {
           final Appointment appointment = details.appointments.first;
           return Container(
@@ -24,10 +56,10 @@ class ScheduleCalendar extends StatelessWidget {
             padding: const EdgeInsets.all(2),
             child: GestureDetector(
               onTap: () {
-                final date = details.date.toUtc();
-                final items = schedule.items[date] ?? [];
+                final selectedDate = details.date;
+                final items = schedule.items[selectedDate] ?? [];
                 final item = items.firstWhere(
-                  (item) => item.date == date,
+                  (item) => item.toString() == appointment.id,
                 );
 
                 showDialog(
@@ -57,14 +89,19 @@ List<Appointment> _getAppointments(ScheduleEntity schedule) {
 
   schedule.items.forEach((date, items) {
     for (var item in items) {
-      final color = item.lessonType == 'Лекція'
-          ? Colors.red
-          : item.lessonType == 'Практика'
-              ? Colors.green
-              : Colors.blue;
+      final color = switch (item.lessonType) {
+        'лекція' => Colors.blue,
+        'практ.зан.' => Colors.green,
+        'лаб.зан.' => Colors.red,
+        'консультація' => Colors.orange,
+        'екзамен' => Colors.purple,
+        'залік' => Colors.purple,
+        _ => Colors.black,
+      };
+
       appointments.add(
         Appointment(
-          id: item.subject,
+          id: item.toString(),
           startTime:
               DateTime(date.year, date.month, date.day, item.startTime.hour, item.startTime.minute),
           endTime:
@@ -79,8 +116,8 @@ List<Appointment> _getAppointments(ScheduleEntity schedule) {
   return appointments;
 }
 
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Appointment> appointments) {
+class _MeetingDataSource extends CalendarDataSource {
+  _MeetingDataSource(List<Appointment> appointments) {
     this.appointments = appointments;
   }
 }

@@ -1,11 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:hneu_timetable/src/data/mock.dart';
 import 'package:hneu_timetable/src/data/models/dtos.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' as html_parser;
-
-import 'models/entities.dart';
 
 class ScheduleService {
   // ignore: unused_field
@@ -13,18 +9,24 @@ class ScheduleService {
 
   ScheduleService(this._dio);
 
-  Future<ParsedScheduleDTO> getSchedule() async {
-    // const url = 'http://rozklad.hneu.edu.ua/schedule/schedule?group=37995&week=4&student=446566';
+  static const baseUrl = 'http://rozklad.hneu.edu.ua/schedule/schedule';
 
-    // final response = await _dio.get(url);
+  Future<ParsedScheduleDTO> getSchedule({
+    required int week,
+    required int group,
+  }) async {
+    final response = await _dio.get(
+      baseUrl,
+      queryParameters: {
+        'group': group,
+        if (week > 0) 'week': week,
+      },
+    );
 
-    // if (response.statusCode == 200) {
-    final document = html_parser.parse(mockHtml);
+    // final document = html_parser.parse(mockHtml);
+    final document = html_parser.parse(response.data);
     final scheduleItems = _parseHtml(document);
     return scheduleItems;
-    // } else {
-    //   throw Exception('Failed to load schedule');
-    // }
   }
 
   ParsedScheduleDTO _parseHtml(Document document) {

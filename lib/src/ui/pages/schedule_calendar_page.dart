@@ -5,6 +5,8 @@ import 'package:hneu_timetable/src/data/network_service.dart';
 import 'package:hneu_timetable/src/data/repository.dart';
 import 'package:dio/dio.dart';
 
+int week = 0;
+
 class ScheduleCalendarPage extends StatefulWidget {
   const ScheduleCalendarPage({super.key});
 
@@ -16,6 +18,8 @@ class _ScheduleCalendarPageState extends State<ScheduleCalendarPage> {
   final repo = ScheduleRepository(service: ScheduleService(Dio()));
   ScheduleEntity? _schedule;
 
+  final group = 37995;
+
   @override
   void initState() {
     super.initState();
@@ -23,17 +27,23 @@ class _ScheduleCalendarPageState extends State<ScheduleCalendarPage> {
   }
 
   Future<void> _fetchSchedule() async {
-    final schedule = await repo.getSchedule();
+    final schedule = await repo.getSchedule(
+      group: group,
+      week: week,
+    );
     setState(() => _schedule = schedule);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Schedule Calendar')),
-      body: _schedule == null
-          ? const Center(child: CircularProgressIndicator())
-          : ScheduleCalendar(schedule: _schedule!),
-    );
+    return _schedule == null
+        ? const Center(child: CircularProgressIndicator())
+        : ScheduleCalendar(
+            schedule: _schedule!,
+            onWeekChanged: (value) => setState(() {
+              week = value;
+              _fetchSchedule();
+            }),
+          );
   }
 }

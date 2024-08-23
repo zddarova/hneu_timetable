@@ -8,8 +8,14 @@ class ScheduleRepository {
 
   ScheduleRepository({required this.service});
 
-  Future<ScheduleEntity> getSchedule() async {
-    final scheduleDto = await service.getSchedule();
+  Future<ScheduleEntity> getSchedule({
+    required int week,
+    required int group,
+  }) async {
+    final scheduleDto = await service.getSchedule(
+      week: week,
+      group: group,
+    );
     final entity = _parseToEntity(scheduleDto);
     return entity;
   }
@@ -115,6 +121,6 @@ class ScheduleRepository {
       year,
       monthNumber,
       dateNumber,
-    ).toUtc();
+    );
   }
 }

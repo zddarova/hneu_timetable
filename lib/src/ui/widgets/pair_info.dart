@@ -28,7 +28,6 @@ class PairInfo extends StatelessWidget {
 
 class _PairInfoItem extends StatelessWidget {
   const _PairInfoItem({
-    super.key,
     required this.title,
     required this.value,
   });
