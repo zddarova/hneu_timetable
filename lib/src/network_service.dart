@@ -1,47 +1,66 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hneu_timetable/src/mock.dart';
+import 'package:hneu_timetable/src/models/dtos.dart';
+import 'package:html/dom.dart';
 import 'package:html/parser.dart' as html_parser;
 
-import 'models/schedule.dart';
+import 'models/entities.dart';
 
 class ScheduleService {
+  // ignore: unused_field
   final Dio _dio;
 
   ScheduleService(this._dio);
 
-  Future<ScheduleEntity> getSchedule() async {
-    const url = 'http://rozklad.hneu.edu.ua/schedule/schedule?group=37995&week=4&student=446566';
+  Future<ParsedScheduleDTO> getSchedule() async {
+    // const url = 'http://rozklad.hneu.edu.ua/schedule/schedule?group=37995&week=4&student=446566';
 
-    final response = await _dio.get(url);
+    // final response = await _dio.get(url);
 
-    if (response.statusCode == 200) {
-      final document = html_parser.parse(response.data);
-      final scheduleItems = _parseHtml(document);
-
-      return ScheduleEntity(items: parseToEntities(scheduleItems));
-    } else {
-      throw Exception('Failed to load schedule');
-    }
+    // if (response.statusCode == 200) {
+    final document = html_parser.parse(mockHtml);
+    final scheduleItems = _parseHtml(document);
+    return scheduleItems;
+    // } else {
+    //   throw Exception('Failed to load schedule');
+    // }
   }
 
-  List<ScheduleItemDTO> _parseHtml(dynamic document) {
+  ParsedScheduleDTO _parseHtml(Document document) {
     final List<ScheduleItemDTO> items = [];
+    final List<DayDTO> days = [];
+    final title = document.querySelector('title')?.text ?? '';
 
     // Find all rows containing the schedule info
     final rows = document.querySelectorAll('tr');
 
-    for (var row in rows) {
+    for (var i = 0; i < rows.length; i++) {
+      final row = rows[i];
+      final dayName = row.querySelector('td#dayName')?.text.trim();
+      final date = row.querySelector('td#date')?.text.trim();
+
+      if (dayName != null && date != null) {
+        days.add(DayDTO(day: dayName, date: date));
+        continue;
+      }
+
       final timeCell = row.querySelector('td.pair');
-      final timeRange = timeCell?.querySelector('#pair-timing')?.text.trim() as String?;
+      final timeRange = timeCell?.querySelector('#pair-timing')?.text.trim();
       if (timeRange == null) continue;
+
+      final pairText = timeCell?.text.trim();
+      final pairNumber = int.tryParse(pairText?[0] ?? '');
+      if (pairNumber == null) continue;
 
       final startTime = timeRange.substring(0, 5);
       final endTime = timeRange.substring(21, 26);
-// 08:30 - 09:1509:20 - 10:05
+      // 08:30 - 09:1509:20 - 10:05
       // Get all subjects and their related info from the row
       final subjectCells = row.querySelectorAll('td#cell');
 
-      for (var subjectCell in subjectCells) {
+      for (var j = 0; j < subjectCells.length; j++) {
+        final subjectCell = subjectCells[j];
         final subject = subjectCell.querySelector('#subject')?.text.trim() ?? '';
         final lessonType = subjectCell.querySelector('#lessonType')?.text.trim() ?? '';
         final room = subjectCell.querySelector('#room')?.text.trim() ?? '';
@@ -55,6 +74,10 @@ class ScheduleService {
             room: room,
             lessonType: lessonType,
             teacher: teacher,
+            timeString: timeRange,
+            pairNumber: pairNumber,
+            rowNumber: i,
+            columnNumber: j,
           );
 
           items.add(item);
@@ -62,33 +85,10 @@ class ScheduleService {
       }
     }
 
-    return items;
-  }
-
-  List<ScheduleItemEntity> parseToEntities(List<ScheduleItemDTO> scheduleItems) {
-    return scheduleItems.map((item) {
-      final startTimeParts = item.startTime.split(':');
-      final endTimeParts = item.endTime.split(':');
-
-      final startTime = TimeOfDay(
-        hour: int.parse(startTimeParts[0]),
-        minute: int.parse(startTimeParts[1]),
-      );
-
-      final endTime = TimeOfDay(
-        hour: int.parse(endTimeParts[0]),
-        minute: int.parse(endTimeParts[1]),
-      );
-
-      return ScheduleItemEntity(
-        subject: item.subject,
-        startTime: startTime,
-        endTime: endTime,
-        date: DateTime.now(),
-        room: item.room,
-        teacher: item.teacher,
-        lessonType: item.lessonType,
-      );
-    }).toList();
+    return ParsedScheduleDTO(
+      title: title,
+      days: days,
+      items: items,
+    );
   }
 }

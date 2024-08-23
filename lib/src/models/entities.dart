@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'schedule.freezed.dart';
+part 'entities.freezed.dart';
 
 @freezed
 class ScheduleEntity with _$ScheduleEntity {
   const factory ScheduleEntity({
-    required List<ScheduleItemEntity> items,
+    required String title,
+    required Map<DateTime, List<ScheduleItemEntity>> items,
   }) = _ScheduleEntity;
 }
 
-@freezed
-class ScheduleItemDTO with _$ScheduleItemDTO {
-  const factory ScheduleItemDTO({
-    required String subject,
-    required String startTime,
-    required String endTime,
-    required String room,
-    required String teacher,
-    required String lessonType,
-  }) = _ScheduleItemDTO;
-}
 
 @freezed
 class ScheduleItemEntity with _$ScheduleItemEntity {
@@ -34,3 +24,4 @@ class ScheduleItemEntity with _$ScheduleItemEntity {
     required String lessonType,
   }) = _ScheduleItemEntit;
 }
+

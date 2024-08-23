@@ -1,0 +1,693 @@
+const mockHtml = '''
+<!Doctype html>
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta content="height=device-height" name="viewport" xmlns:java="http://xml.apache.org/xslt/java">
+        <link href="css/css.css" rel="stylesheet" type="text/css">
+        <link href="css/fontello.css" rel="stylesheet">
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <link href="img/favicon.png" rel="icon" type="image/png">
+        <link href="img/clock_60.png" rel="apple-touch-icon">
+        <title>Розклад
+        на групу 6.01.073.100.24.1</title>
+        <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }
+                ,
+                i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            }
+            )(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-28975455-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </head>
+    <span id="title">
+        <a href="selection.jsf" style="padding-right: 5px; padding-left:0px;">
+            <img alt="Логотип" class="im" src="img/clock_32.png" title="Головна сторінка">
+        </a>
+        <span style="white-space:nowrap;">Розклад
+        на групу 6.01.073.100.24.1</span>
+        <span style="white-space:nowrap; color:grey; font-size:smaller">(ф-т Навчально-науковий інститут міжнародних відносин, спец. 6.073.100 - Міжнародний менеджмент, курс 1)</span>
+    </span>
+    <table border="0" cellspacing="0" width="100%">
+        <tr>
+            <th class="header">
+                <table>
+                    <tr>
+                        <td id="dayName"></td>
+                    </tr>
+                    <tr>
+                        <td id="date"></td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">Понедiлок</td>
+                        <td id="date">16 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">Вiвторок</td>
+                        <td id="date">17 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">Середа</td>
+                        <td id="date">18 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">Четвер</td>
+                        <td id="date">19 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">П'ятниця</td>
+                        <td id="date">20 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">Субота</td>
+                        <td id="date">21 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+            <th class="header">
+                <table id="header-cell-table">
+                    <tr>
+                        <td id="dayName" width="60%">Недiля</td>
+                        <td id="date">22 вересня 2024</td>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        <tr>
+            <td class="pair">
+                1 пара
+                <div id="pair-timing">
+                    08:30 - 09:15<br>09:20 - 10:05
+                </div>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">ВИЩА МАТЕМАТИКА </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лаб.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-1(D) (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Лебедєва Ірина Леонідівна" href="schedule?employee=445180&amp;week=4">Лебедєва І.Л.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">ТЕОРІЯ ОРГАНІЗАЦІЇ</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">практ.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-6 (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Кирилюк Андрій Олександрович" href="schedule?employee=445139&amp;week=4">Кирилюк А.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="weekend-cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Інформатика</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">Дистанційне-200 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Передрій Олена Олегівна" href="schedule?employee=441142&amp;week=4">Передрій О.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="weekend-cell">
+                <div id="empty"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="pair">
+                2 пара
+                <div id="pair-timing">
+                    10:15 - 11:00<br>11:05 - 11:50
+                </div>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">ІСТОРІЯ УКРАЇНСЬКОЇ КУЛЬТУРИ</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">практ.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-1(А) (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Свинаренко Наталія Олександрівна" href="schedule?employee=445110&amp;week=4">Свинаренко Н.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">ВИЩА МАТЕМАТИКА </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-106 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Лебедєва Ірина Леонідівна" href="schedule?employee=445180&amp;week=4">Лебедєва І.Л.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Макро- і мікроекономіка</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">практ.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-6 (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Шифріна Надія Ігорівна" href="schedule?employee=439354&amp;week=4">Шифріна Н.І.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Іноземна мова (за професійним спрямуванням)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">практ.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-97 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Осьмачко Світлана Анатоліївна" href="schedule?employee=442140&amp;week=4">Осьмачко С.А.</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="group-img" valign="top">
+                            <i class="icon-users"></i>
+                        </td>
+                        <td id="subgroup">
+                            <span>А_МВ</span>
+                            <br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td id="weekend-cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Інформатика</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-109 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Передрій Олена Олегівна" href="schedule?employee=441142&amp;week=4">Передрій О.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="weekend-cell">
+                <div id="empty"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="pair">
+                3 пара
+                <div id="pair-timing">
+                    12:10 - 12:55<br>13:00 - 13:45
+                </div>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Інформатика</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лаб.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-1(А) (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Передрій Олена Олегівна" href="schedule?employee=441142&amp;week=4">Передрій О.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">ТЕОРІЯ ОРГАНІЗАЦІЇ</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-119 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Кінас Ірина Олександрівна" href="schedule?employee=445124&amp;week=4">Кінас І.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Вступ до фаху</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">практ.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-1(А) (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Снопченко Мілана Юріївна" href="schedule?employee=443390&amp;week=4">Снопченко М.Ю.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="weekend-cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Вступ до фаху</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-100 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Снопченко Мілана Юріївна" href="schedule?employee=443390&amp;week=4">Снопченко М.Ю.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="weekend-cell">
+                <div id="empty"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="pair">
+                4 пара
+                <div id="pair-timing">
+                    13:55 - 14:40<br>14:45 - 15:30
+                </div>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">ВСТУП ДО ФАХУ (АНТИКОРУПЦІЯ ТА ДОБРОЧЕСНІСТЬ)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-250 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Полякова Ганна Анатоліївна" href="schedule?employee=442146&amp;week=4">Полякова Г.А.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Інформатика</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лаб.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">ОЦ-1(А) (корп. главн.)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Передрій Олена Олегівна" href="schedule?employee=441142&amp;week=4">Передрій О.О.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject">Макро- і мікроекономіка</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="lessonType">лекція</td>
+                    </tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room">дистанційне-106 (корп. Дист/навч)</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Черкашина Тетяна Сергіївна" href="schedule?employee=439393&amp;week=4">Черкашина Т.С.</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="cell">
+                <div id="empty"></div>
+            </td>
+            <td id="weekend-cell">
+                <div id="empty"></div>
+            </td>
+            <td id="weekend-cell">
+                <div id="empty"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="pair">
+                5 пара
+                <div id="pair-timing">
+                    15:50 - 16:35<br>16:40 - 17:25
+                </div>
+            </td>
+            <td id="cell">
+                <table id="element-table">
+                    <tr>
+                        <td colspan="3" id="subject-small" align="center">Іноземна мова (за професійним спрямуванням) (НІМ)</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td id="room-img">
+                            <i class="icon-location"></i>
+                        </td>
+                        <td id="room-small">
+                            <span style="margin-right: -14px;">дистанційне-103 (корп. Дист/навч)</span>
+                        </td>
+                        <td align="right" colspan="2" id="lessonType-small">практ.зан.</td>
+                    </tr>
+                    <tr>
+                        <td id="teacher-img">
+                            <i class="icon-user"></i>
+                        </td>
+                        <td id="teacher">
+                            <a id="schedule-link" title="Лещінська Ауріка Вікторівна" href="schedule?employee=427547&amp;week=4">Лещінська А.В.</a>
+                        </td>
+                        <td id="subgroup-small" nowrap>
+                            <span id="subgroup-img">
+                                <i class="icon-users"></i>
+                            </span>
+                            <span id="group-text">підгр.</span>
+                            <span>НІМ_МВ</span>
+                            <br>
+                        </td>
+                    </tr>
+        </tr>
+    </table>
+    <hr id="multiple-delim">
+    <table id="element-table">
+        <tr>
+            <td colspan="3" id="subject-small" align="center">Іноземна мова (за професійним спрямуванням) (ФР)</td>
+        </tr>
+        <tr>
+        <tr>
+            <td id="room-img">
+                <i class="icon-location"></i>
+            </td>
+            <td id="room-small">
+                <span style="margin-right: -14px;">дистанційне-103 (корп. Дист/навч)</span>
+            </td>
+            <td align="right" colspan="2" id="lessonType-small">практ.зан.</td>
+        </tr>
+        <tr>
+            <td id="teacher-img">
+                <i class="icon-user"></i>
+            </td>
+            <td id="teacher">
+                <a id="schedule-link" title="Кобринець Ольга Станіславівна" href="schedule?employee=433341&amp;week=4">Кобринець О.С.</a>
+            </td>
+            <td id="subgroup-small" nowrap>
+                <span id="subgroup-img">
+                    <i class="icon-users"></i>
+                </span>
+                <span id="group-text">підгр.</span>
+                <span>ФР_МВ</span>
+                <br>
+            </td>
+        </tr>
+</tr></table></td>
+<td id="cell">
+    <div id="empty"></div>
+</td>
+<td id="cell">
+    <table id="element-table">
+        <tr>
+            <td colspan="3" id="subject">ІСТОРІЯ УКРАЇНСЬКОЇ КУЛЬТУРИ</td>
+        </tr>
+        <tr>
+            <td colspan="2" id="lessonType">лекція</td>
+        </tr>
+        <tr>
+            <td id="room-img">
+                <i class="icon-location"></i>
+            </td>
+            <td id="room">дистанційне-102 (корп. Дист/навч)</td>
+        </tr>
+        <tr>
+            <td id="teacher-img">
+                <i class="icon-user"></i>
+            </td>
+            <td id="teacher">
+                <a id="schedule-link" title="Свинаренко Наталія Олександрівна" href="schedule?employee=445110&amp;week=4">Свинаренко Н.О.</a>
+            </td>
+        </tr>
+        <tr></tr>
+    </table>
+</td>
+<td id="cell">
+    <div id="empty"></div>
+</td>
+<td id="cell">
+    <div id="empty"></div>
+</td>
+<td id="weekend-cell">
+    <div id="empty"></div>
+</td>
+<td id="weekend-cell">
+    <div id="empty"></div>
+</td>
+</tr></table>
+<table border="0" style="width: 100%; margin-top: 10px;">
+    <tr>
+        <td width="10%" align="left" nowrap="nowrap">
+            <a title="Перейти до сторінки вибору групи / викладача" href="selection.jsf">&larr;Головна сторінка</a>
+            &nbsp;&nbsp;&nbsp;
+        </td>
+        <td width="80%" align="center" nowrap="nowrap">
+            <a title="Перейти до розкладу попереднього тижня " href="/schedule/schedule?group=37995&week=3&student=446566">&larr;Попередній тиждень</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a title="Перейти до поточного тижня розкладу" href="/schedule/schedule?group=37995">Поточний тиждень</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a title="Перейти до розкладу наступного тижня " href="/schedule/schedule?group=37995&week=5&student=446566">Наступний тиждень &rarr;</a>
+        </td>
+        <td width="10%" nowrap="nowrap">&nbsp;</td>
+    </tr>
+</table>
+</html>
+''';

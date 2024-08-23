@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'schedule.dart';
+part of 'entities.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScheduleEntity {
-  List<ScheduleItemEntity> get items => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  Map<DateTime, List<ScheduleItemEntity>> get items =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of ScheduleEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +33,7 @@ abstract class $ScheduleEntityCopyWith<$Res> {
           ScheduleEntity value, $Res Function(ScheduleEntity) then) =
       _$ScheduleEntityCopyWithImpl<$Res, ScheduleEntity>;
   @useResult
-  $Res call({List<ScheduleItemEntity> items});
+  $Res call({String title, Map<DateTime, List<ScheduleItemEntity>> items});
 }
 
 /// @nodoc
@@ -49,13 +51,18 @@ class _$ScheduleEntityCopyWithImpl<$Res, $Val extends ScheduleEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
     Object? items = null,
   }) {
     return _then(_value.copyWith(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<ScheduleItemEntity>,
+              as Map<DateTime, List<ScheduleItemEntity>>,
     ) as $Val);
   }
 }
@@ -68,7 +75,7 @@ abstract class _$$ScheduleEntityImplCopyWith<$Res>
       __$$ScheduleEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ScheduleItemEntity> items});
+  $Res call({String title, Map<DateTime, List<ScheduleItemEntity>> items});
 }
 
 /// @nodoc
@@ -84,13 +91,18 @@ class __$$ScheduleEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
     Object? items = null,
   }) {
     return _then(_$ScheduleEntityImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<ScheduleItemEntity>,
+              as Map<DateTime, List<ScheduleItemEntity>>,
     ));
   }
 }
@@ -98,20 +110,24 @@ class __$$ScheduleEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ScheduleEntityImpl implements _ScheduleEntity {
-  const _$ScheduleEntityImpl({required final List<ScheduleItemEntity> items})
+  const _$ScheduleEntityImpl(
+      {required this.title,
+      required final Map<DateTime, List<ScheduleItemEntity>> items})
       : _items = items;
 
-  final List<ScheduleItemEntity> _items;
   @override
-  List<ScheduleItemEntity> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
+  final String title;
+  final Map<DateTime, List<ScheduleItemEntity>> _items;
+  @override
+  Map<DateTime, List<ScheduleItemEntity>> get items {
+    if (_items is EqualUnmodifiableMapView) return _items;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
+    return EqualUnmodifiableMapView(_items);
   }
 
   @override
   String toString() {
-    return 'ScheduleEntity(items: $items)';
+    return 'ScheduleEntity(title: $title, items: $items)';
   }
 
   @override
@@ -119,12 +135,13 @@ class _$ScheduleEntityImpl implements _ScheduleEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ScheduleEntityImpl &&
+            (identical(other.title, title) || other.title == title) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+  int get hashCode => Object.hash(
+      runtimeType, title, const DeepCollectionEquality().hash(_items));
 
   /// Create a copy of ScheduleEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -138,252 +155,20 @@ class _$ScheduleEntityImpl implements _ScheduleEntity {
 
 abstract class _ScheduleEntity implements ScheduleEntity {
   const factory _ScheduleEntity(
-      {required final List<ScheduleItemEntity> items}) = _$ScheduleEntityImpl;
+          {required final String title,
+          required final Map<DateTime, List<ScheduleItemEntity>> items}) =
+      _$ScheduleEntityImpl;
 
   @override
-  List<ScheduleItemEntity> get items;
+  String get title;
+  @override
+  Map<DateTime, List<ScheduleItemEntity>> get items;
 
   /// Create a copy of ScheduleEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ScheduleEntityImplCopyWith<_$ScheduleEntityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$ScheduleItemDTO {
-  String get subject => throw _privateConstructorUsedError;
-  String get startTime => throw _privateConstructorUsedError;
-  String get endTime => throw _privateConstructorUsedError;
-  String get room => throw _privateConstructorUsedError;
-  String get teacher => throw _privateConstructorUsedError;
-  String get lessonType => throw _privateConstructorUsedError;
-
-  /// Create a copy of ScheduleItemDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ScheduleItemDTOCopyWith<ScheduleItemDTO> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ScheduleItemDTOCopyWith<$Res> {
-  factory $ScheduleItemDTOCopyWith(
-          ScheduleItemDTO value, $Res Function(ScheduleItemDTO) then) =
-      _$ScheduleItemDTOCopyWithImpl<$Res, ScheduleItemDTO>;
-  @useResult
-  $Res call(
-      {String subject,
-      String startTime,
-      String endTime,
-      String room,
-      String teacher,
-      String lessonType});
-}
-
-/// @nodoc
-class _$ScheduleItemDTOCopyWithImpl<$Res, $Val extends ScheduleItemDTO>
-    implements $ScheduleItemDTOCopyWith<$Res> {
-  _$ScheduleItemDTOCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ScheduleItemDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? subject = null,
-    Object? startTime = null,
-    Object? endTime = null,
-    Object? room = null,
-    Object? teacher = null,
-    Object? lessonType = null,
-  }) {
-    return _then(_value.copyWith(
-      subject: null == subject
-          ? _value.subject
-          : subject // ignore: cast_nullable_to_non_nullable
-              as String,
-      startTime: null == startTime
-          ? _value.startTime
-          : startTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      endTime: null == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      room: null == room
-          ? _value.room
-          : room // ignore: cast_nullable_to_non_nullable
-              as String,
-      teacher: null == teacher
-          ? _value.teacher
-          : teacher // ignore: cast_nullable_to_non_nullable
-              as String,
-      lessonType: null == lessonType
-          ? _value.lessonType
-          : lessonType // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ScheduleItemDTOImplCopyWith<$Res>
-    implements $ScheduleItemDTOCopyWith<$Res> {
-  factory _$$ScheduleItemDTOImplCopyWith(_$ScheduleItemDTOImpl value,
-          $Res Function(_$ScheduleItemDTOImpl) then) =
-      __$$ScheduleItemDTOImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String subject,
-      String startTime,
-      String endTime,
-      String room,
-      String teacher,
-      String lessonType});
-}
-
-/// @nodoc
-class __$$ScheduleItemDTOImplCopyWithImpl<$Res>
-    extends _$ScheduleItemDTOCopyWithImpl<$Res, _$ScheduleItemDTOImpl>
-    implements _$$ScheduleItemDTOImplCopyWith<$Res> {
-  __$$ScheduleItemDTOImplCopyWithImpl(
-      _$ScheduleItemDTOImpl _value, $Res Function(_$ScheduleItemDTOImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ScheduleItemDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? subject = null,
-    Object? startTime = null,
-    Object? endTime = null,
-    Object? room = null,
-    Object? teacher = null,
-    Object? lessonType = null,
-  }) {
-    return _then(_$ScheduleItemDTOImpl(
-      subject: null == subject
-          ? _value.subject
-          : subject // ignore: cast_nullable_to_non_nullable
-              as String,
-      startTime: null == startTime
-          ? _value.startTime
-          : startTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      endTime: null == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as String,
-      room: null == room
-          ? _value.room
-          : room // ignore: cast_nullable_to_non_nullable
-              as String,
-      teacher: null == teacher
-          ? _value.teacher
-          : teacher // ignore: cast_nullable_to_non_nullable
-              as String,
-      lessonType: null == lessonType
-          ? _value.lessonType
-          : lessonType // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ScheduleItemDTOImpl implements _ScheduleItemDTO {
-  const _$ScheduleItemDTOImpl(
-      {required this.subject,
-      required this.startTime,
-      required this.endTime,
-      required this.room,
-      required this.teacher,
-      required this.lessonType});
-
-  @override
-  final String subject;
-  @override
-  final String startTime;
-  @override
-  final String endTime;
-  @override
-  final String room;
-  @override
-  final String teacher;
-  @override
-  final String lessonType;
-
-  @override
-  String toString() {
-    return 'ScheduleItemDTO(subject: $subject, startTime: $startTime, endTime: $endTime, room: $room, teacher: $teacher, lessonType: $lessonType)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ScheduleItemDTOImpl &&
-            (identical(other.subject, subject) || other.subject == subject) &&
-            (identical(other.startTime, startTime) ||
-                other.startTime == startTime) &&
-            (identical(other.endTime, endTime) || other.endTime == endTime) &&
-            (identical(other.room, room) || other.room == room) &&
-            (identical(other.teacher, teacher) || other.teacher == teacher) &&
-            (identical(other.lessonType, lessonType) ||
-                other.lessonType == lessonType));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, subject, startTime, endTime, room, teacher, lessonType);
-
-  /// Create a copy of ScheduleItemDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ScheduleItemDTOImplCopyWith<_$ScheduleItemDTOImpl> get copyWith =>
-      __$$ScheduleItemDTOImplCopyWithImpl<_$ScheduleItemDTOImpl>(
-          this, _$identity);
-}
-
-abstract class _ScheduleItemDTO implements ScheduleItemDTO {
-  const factory _ScheduleItemDTO(
-      {required final String subject,
-      required final String startTime,
-      required final String endTime,
-      required final String room,
-      required final String teacher,
-      required final String lessonType}) = _$ScheduleItemDTOImpl;
-
-  @override
-  String get subject;
-  @override
-  String get startTime;
-  @override
-  String get endTime;
-  @override
-  String get room;
-  @override
-  String get teacher;
-  @override
-  String get lessonType;
-
-  /// Create a copy of ScheduleItemDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ScheduleItemDTOImplCopyWith<_$ScheduleItemDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
